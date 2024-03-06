@@ -14,7 +14,6 @@ func basicMatMul(A *Matrix, B *Matrix, C *Matrix) {
 	}
 
 	// compute basic matrix multiplication algorithm
-
 	var i, j, k uint
 
 	// i'th row
@@ -29,5 +28,4 @@ func basicMatMul(A *Matrix, B *Matrix, C *Matrix) {
 			}
 		}
 	}
-
 }

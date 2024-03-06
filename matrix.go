@@ -21,17 +21,25 @@ func randomInt(min, max int) int {
 /**
  * @notice this function initializes a matrix with random values between 0 and 25
  */
-func matrixInit(rows uint, cols uint) Matrix {
-	// init matrix struct
+func matrixInit(rows uint, cols uint, matType string) Matrix {
+
+	// allocate memory for matrix
 	var matrix Matrix = Matrix{
 		make([]float64, rows*cols),
 		rows,
 		cols,
 	}
 
+	// init matrix data
 	for i := 0; i < int(rows*cols); i++ {
-		// random int between 0 and 25
-		matrix.data[i] = float64(randomInt(0, 25))
+
+		// initialize to the matType specificaiton
+		if matType == "randRange" {
+			matrix.data[i] = float64(randomInt(randLowerBound, randUpperBound))
+
+		} else if matType == "zero" {
+			matrix.data[i] = 0
+		}
 	}
 
 	return matrix
