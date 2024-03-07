@@ -5,5 +5,6 @@ func main() {
 
 	// run speed trial
 	basicMatMulSpeedTrial()
+	partitionedMatMulSpeedTrial()
 
 }
