@@ -15,8 +15,8 @@ func main() {
 	var matrixSizes []uint = []uint{2, 4, 8, 16, 32, 64, 128, 256, 512 /*, 1024, 2048, 4096, 8192*/}
 
 	// run speed trial
-	partitionedTimes := partitionedMatMulSpeedTrial(matrixSizes)
-	basicTimes := basicMatMulSpeedTrial(matrixSizes)
+	partitionedTimes := PartitionedMatMulSpeedTrial(matrixSizes)
+	basicTimes := BasicMatMulSpeedTrial(matrixSizes)
 
 	// compute time delta
 	fmt.Println("Results:")

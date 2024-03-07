@@ -6,7 +6,7 @@ package main
  * @param B: the second matrix in the product
  * @param C: the matrix to store the result of the product
  */
-func basicMatMul(A *Matrix, B *Matrix, C *Matrix) {
+func BasicMatMul(A *Matrix, B *Matrix, C *Matrix) {
 
 	// check if the matrices are compatible for multiplication
 	if A.cols != B.rows {
@@ -24,7 +24,7 @@ func basicMatMul(A *Matrix, B *Matrix, C *Matrix) {
 
 			// dot product i'th row w/ j'th col
 			for k = 0; k < A.cols; k++ {
-				C.data[index(i, j, C.cols)] += A.data[index(i, k, A.cols)] * B.data[index(k, j, B.cols)]
+				C.data[Index(i, j, C.cols)] += A.data[Index(i, k, A.cols)] * B.data[Index(k, j, B.cols)]
 			}
 		}
 	}
