@@ -5,21 +5,16 @@ import (
 	"time"
 )
 
-// rand range for matrix element initialization
-const randLowerBound int = 0
-const randUpperBound int = 25
-
 /**
  * @notice testBasicMatMulSpeed tests the speed of the basic matrix multiplication algorithm
  * on square matrices of varying sizes
  * @param t: the testing object
  */
-func basicMatMulSpeedTrial() {
+func basicMatMulSpeedTrial(matrixSizes []uint) []time.Duration {
 
 	fmt.Println("Running speed trial on basic matrix multiplication algorithm")
 
-	// square matrix sizes to test
-	var matrixSizes []uint = []uint{2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096}
+	var times []time.Duration
 
 	// iterate over matrix sizes
 	for _, matrixSize := range matrixSizes {
@@ -39,10 +34,13 @@ func basicMatMulSpeedTrial() {
 
 		// stop timer
 		elapsed := time.Since(start)
+		times = append(times, elapsed)
 
 		// print time elapsed
 		fmt.Printf("Basic matrix multiplication on %dx%d matrix took %s\n", matrixSize, matrixSize, elapsed)
 	}
+
+	return times
 }
 
 /**
@@ -50,12 +48,11 @@ func basicMatMulSpeedTrial() {
  * on square matrices of varying sizes
  * @param t: the testing object
  */
-func partitionedMatMulSpeedTrial() {
+func partitionedMatMulSpeedTrial(matrixSizes []uint) []time.Duration {
 
 	fmt.Println("Running speed trial on basic matrix multiplication algorithm")
 
-	// square matrix sizes to test
-	var matrixSizes []uint = []uint{2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096}
+	var times []time.Duration
 
 	// iterate over matrix sizes
 	for _, matrixSize := range matrixSizes {
@@ -75,8 +72,11 @@ func partitionedMatMulSpeedTrial() {
 
 		// stop timer
 		elapsed := time.Since(start)
+		times = append(times, elapsed)
 
 		// print time elapsed
 		fmt.Printf("Basic matrix multiplication on %dx%d matrix took %s\n", matrixSize, matrixSize, elapsed)
 	}
+
+	return times
 }

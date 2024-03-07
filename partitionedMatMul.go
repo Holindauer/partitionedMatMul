@@ -42,6 +42,7 @@ func matMul2x2(A Matrix2x2, B Matrix2x2, C Matrix2x2) {
  * in the output matrix C.
  * @dev The algorithm partitions the input matrices into 2x2 matrices, and computes the matrix multiplication of
  * each partition concurrently. The results are stored in the output matrix C directly duuring each goroutine.
+ * @dev currently, this algorithm only supports square matrices of size 2^n x 2^n
  */
 func partitionedMatMul(A *Matrix, B *Matrix, C *Matrix) {
 
@@ -54,12 +55,6 @@ func partitionedMatMul(A *Matrix, B *Matrix, C *Matrix) {
 	// matrix will be split into as many 2x2 matrices as possible
 	var rowPartitions uint = A.rows / 2
 	var colPartitions uint = A.cols / 2
-
-	// if the number of rows is odd, add an extra partition for the remaining vector
-	if A.rows%2 != 0 {
-		rowPartitions++
-		colPartitions++
-	}
 
 	// create wait group
 	var wg sync.WaitGroup
