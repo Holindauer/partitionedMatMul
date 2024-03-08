@@ -54,8 +54,7 @@ A_{21} & A_{22}
 \begin{bmatrix}
 B_{11} & B_{12} \\
 B_{21} & B_{22}
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 C_{11} & C_{12} \\
 C_{21} & C_{22}
