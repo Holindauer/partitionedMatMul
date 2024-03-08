@@ -12,19 +12,19 @@ const randUpperBound int = 25
 func main() {
 
 	// square matrix sizes to test
-	var matrixSizes []uint = []uint{2, 4, 8, 16, 32, 64, 128, 256, 512 /*, 1024, 2048, 4096, 8192*/}
+	var matrixSizes []uint = []uint{2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048}
 
 	// run speed trial
 	partitionedTimes := PartitionedMatMulSpeedTrial(matrixSizes)
 	basicTimes := BasicMatMulSpeedTrial(matrixSizes)
 
 	// compute time delta
-	fmt.Println("Results:")
+	fmt.Println("\nResults (execution time decrease):")
 	var timeDelta []time.Duration = make([]time.Duration, len(matrixSizes))
 
 	// iterate over matrix sizes
 	for i := 0; i < len(matrixSizes); i++ {
 		timeDelta[i] = partitionedTimes[i] - basicTimes[i]
-		fmt.Printf("Matrix size: %dx%d, execution time decrease delta: %s\n", matrixSizes[i], matrixSizes[i], timeDelta[i])
+		fmt.Printf("%dx%d: %s\n", matrixSizes[i], matrixSizes[i], timeDelta[i])
 	}
 }

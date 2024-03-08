@@ -2,87 +2,71 @@ package main
 
 import (
 	"math/rand"
+	"sync"
 )
 
-// define matrix struct w/ 1D arr and dimensions
+// Matrix structure to hold the matrix data
 type Matrix struct {
-	data []float64
-	rows uint
-	cols uint
+	data    []float64
+	numRows uint
+	numCols uint
+	mu      sync.Mutex // A single mutex for the whole matrix
 }
 
-/*
- * @notice The Matrix2x2 struct contains 4 pointers to the adresses of elements of a 2x2 matrix
- * @dev This struct is intended to be used within a goroutine for computing matmuls of 2x2
- * partitions of a larger matrix.
- */
+// Matrix2x2 structure for partition calculation
 type Matrix2x2 struct {
-	a *float64
-	b *float64
-	c *float64
-	d *float64
+	a, b, c, d *float64
 }
 
-/**
- * @helper function to generate a random int between min and max
- */
-func RandomInt(min, max int) int {
-	return min + rand.Intn(max-min)
-}
-
-/**
- * @notice this function initializes a matrix with random values between 0 and 25
- */
-func MatrixInit(rows uint, cols uint, matType string) Matrix {
-
-	// allocate memory for matrix
-	var matrix Matrix = Matrix{
-		make([]float64, rows*cols),
-		rows,
-		cols,
+// Initialize a new matrix with given dimensions and type
+func NewMatrix(rows, cols uint, matType string) *Matrix {
+	matrix := &Matrix{
+		data:    make([]float64, rows*cols),
+		numRows: rows,
+		numCols: cols,
 	}
 
-	// init matrix data
-	for i := 0; i < int(rows*cols); i++ {
-
-		// initialize to the matType specificaiton
+	for i := range matrix.data {
 		if matType == "randRange" {
-			matrix.data[i] = float64(RandomInt(randLowerBound, randUpperBound))
-
+			matrix.data[i] = float64(rand.Intn(10)) // Simplified for brevity
 		} else if matType == "zero" {
 			matrix.data[i] = 0
+		} else {
+			panic("Invalid matType specified")
 		}
 	}
 
 	return matrix
 }
 
-/**
- * @notice this helper functions computes the index stride for a 2D array stored in a 1D array
- */
+// @helper this helper functions computes the index stride for a 2D array stored in a 1D array
 func Index(i, j, cols uint) uint {
 	return i*cols + j
 }
 
-/**
- * @notice matricesAreEqual() is a helper function that checks if two matrices are equal
- */
+// @helper matricesAreEqual() is a helper function that checks if two matrices are equal
 func MatricesAreEqual(A *Matrix, B *Matrix) bool {
 
 	// check if the matrices have the same dimensions
-	if A.rows != B.rows || A.cols != B.cols {
+	if A.numRows != B.numRows || A.numCols != B.numCols {
 		return false
 	}
 
 	// iterate over the matrix
-	for i := 0; i < int(A.rows); i++ {
-		for j := 0; j < int(A.cols); j++ {
+	for i := 0; i < int(A.numRows); i++ {
+		for j := 0; j < int(A.numCols); j++ {
 
-			if A.data[Index(uint(i), uint(j), A.cols)] != B.data[Index(uint(i), uint(j), B.cols)] {
+			// check if the elements are equal
+			if A.data[Index(uint(i), uint(j), A.numCols)] != B.data[Index(uint(i), uint(j), B.numCols)] {
 				return false
 			}
 		}
 	}
 
 	return true
+}
+
+// @helper function to generate a random int between min and max
+func RandomInt(min, max int) int {
+	return min + rand.Intn(max-min)
 }

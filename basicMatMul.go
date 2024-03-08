@@ -9,7 +9,7 @@ package main
 func BasicMatMul(A *Matrix, B *Matrix, C *Matrix) {
 
 	// check if the matrices are compatible for multiplication
-	if A.cols != B.rows {
+	if A.numCols != B.numRows {
 		panic("Matrices are incompatible for multiplication")
 	}
 
@@ -17,14 +17,14 @@ func BasicMatMul(A *Matrix, B *Matrix, C *Matrix) {
 	var i, j, k uint
 
 	// i'th row
-	for i = 0; i < A.rows; i++ {
+	for i = 0; i < A.numRows; i++ {
 
 		// j'th col
-		for j = 0; j < B.cols; j++ {
+		for j = 0; j < B.numCols; j++ {
 
 			// dot product i'th row w/ j'th col
-			for k = 0; k < A.cols; k++ {
-				C.data[Index(i, j, C.cols)] += A.data[Index(i, k, A.cols)] * B.data[Index(k, j, B.cols)]
+			for k = 0; k < A.numCols; k++ {
+				C.data[Index(i, j, C.numCols)] += A.data[Index(i, k, A.numCols)] * B.data[Index(k, j, B.numCols)]
 			}
 		}
 	}

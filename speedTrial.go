@@ -12,7 +12,7 @@ import (
  */
 func BasicMatMulSpeedTrial(matrixSizes []uint) []time.Duration {
 
-	fmt.Println("Running speed trial on basic matrix multiplication algorithm")
+	fmt.Println("\nRunning speed trial on basic matrix multiplication algorithm")
 
 	var times []time.Duration
 
@@ -20,24 +20,24 @@ func BasicMatMulSpeedTrial(matrixSizes []uint) []time.Duration {
 	for _, matrixSize := range matrixSizes {
 
 		// create a square matrix
-		var A Matrix = MatrixInit(matrixSize, matrixSize, "randRange")
-		var B Matrix = MatrixInit(matrixSize, matrixSize, "randRange")
+		var A *Matrix = NewMatrix(matrixSize, matrixSize, "randRange")
+		var B *Matrix = NewMatrix(matrixSize, matrixSize, "randRange")
 
 		// create output matrix
-		var C Matrix = MatrixInit(matrixSize, matrixSize, "zero")
+		var C *Matrix = NewMatrix(matrixSize, matrixSize, "zero")
 
 		// start timer
 		start := time.Now()
 
 		// perform basic matrix multiplication
-		BasicMatMul(&A, &B, &C)
+		BasicMatMul(A, B, C)
 
 		// stop timer
 		elapsed := time.Since(start)
 		times = append(times, elapsed)
 
 		// print time elapsed
-		fmt.Printf("Basic matrix multiplication on %dx%d matrix took %s\n", matrixSize, matrixSize, elapsed)
+		fmt.Printf("%dx%d: %s\n", matrixSize, matrixSize, elapsed)
 	}
 
 	return times
@@ -50,7 +50,7 @@ func BasicMatMulSpeedTrial(matrixSizes []uint) []time.Duration {
  */
 func PartitionedMatMulSpeedTrial(matrixSizes []uint) []time.Duration {
 
-	fmt.Println("Running speed trial on basic matrix multiplication algorithm")
+	fmt.Println("\nRunning speed trial on partitioned matrix multiplication algorithm")
 
 	var times []time.Duration
 
@@ -58,24 +58,24 @@ func PartitionedMatMulSpeedTrial(matrixSizes []uint) []time.Duration {
 	for _, matrixSize := range matrixSizes {
 
 		// create a square matrix
-		var A Matrix = MatrixInit(matrixSize, matrixSize, "randRange")
-		var B Matrix = MatrixInit(matrixSize, matrixSize, "randRange")
+		var A *Matrix = NewMatrix(matrixSize, matrixSize, "randRange")
+		var B *Matrix = NewMatrix(matrixSize, matrixSize, "randRange")
 
 		// create output matrix
-		var C Matrix = MatrixInit(matrixSize, matrixSize, "zero")
+		var C *Matrix = NewMatrix(matrixSize, matrixSize, "zero")
 
 		// start timer
 		start := time.Now()
 
 		// perform basic matrix multiplication
-		PartitionedMatMul(&A, &B, &C)
+		PartitionedMatMul(A, B, C)
 
 		// stop timer
 		elapsed := time.Since(start)
 		times = append(times, elapsed)
 
 		// print time elapsed
-		fmt.Printf("Basic matrix multiplication on %dx%d matrix took %s\n", matrixSize, matrixSize, elapsed)
+		fmt.Printf("%dx%d: %s\n", matrixSize, matrixSize, elapsed)
 	}
 
 	return times
